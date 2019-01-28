@@ -70,8 +70,8 @@ int main(){
 	cin >> n;
 	Eigen::MatrixXd m = Eigen::MatrixXd::Zero(n,n);
 	cout << "Give me a MU" << endl;
-	double sjfa;
-    cin >> sjfa;
+	double mu;
+    cin >> mu;
 	
 	for (int i=0; i<n; i++){
 		m(i,i)=-2;
@@ -81,26 +81,21 @@ int main(){
 	    if (i<n-1) m(i,i+1)=1;
 	 }
 
-	subMu(&m,sjfa);
-	Eigen::EigenSolver<MatrixXd> es (m,false);
+	subMu(&m, mu);
+	Eigen::SelfAdjointEigenSolver<MatrixXd> eigenSolver (m,false);
 	
 	cout << "	Matrix:" << '\n';
 	cout << m << '\n';
 	cout << "The eigenvalues of the"<< n <<"x"<< n << "matrix of ones are:"<<endl;
 
-	cout<< es.eigenvalues() << endl;
-	double* v=(double *)es.eigenvalues().data();
-	double ev[n];
-	for(int i=0;i<n;i++){
-		ev[i]=v[2*i];
-	}
+	double* eigenValues = (double *)eigenSolver.eigenvalues().data();
 	
-	sort(ev, ev + n);
+	sort(eigenValues, eigenValues + n);
 	ofstream myfile;
     myfile.open ("eigensolves.txt");
     for (size_t i = 0; i != n; ++i){
-        cout << ev[i] << " "<<endl;
-        myfile << ev[i] << '\n';
+        cout << eigenValues[i] << " "<<endl;
+        myfile << eigenValues[i] << '\n';
 	}
         
 	myfile.close();
