@@ -1,8 +1,16 @@
-#include "amgx_c."
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "amgx_c.h"
 
-/*** Compile: gcc -o test test.c -libamgxsh -L/home/gustavo/Documents/CUda/AMGX-master/build/ ***/
+/*** Compile: gcc -o amgLinearSolver.x amgLinearSolver.c -L/home/dteam002/project/AMGX/build -lamgxsh ***/
 /*** Run: ***/
-int main() {
+int main(int argc, char** argv) {
+    /* init */
+    AMGX_SAFE_CALL(AMGX_initialize());
+    AMGX_SAFE_CALL(AMGX_initialize_plugins());
+    /* system */
+    AMGX_SAFE_CALL(AMGX_install_signal_handler());
     AMGX_config_handle cfg;
     AMGX_solver_handle solver;
     AMGX_resources_handle res = NULL;
@@ -10,7 +18,7 @@ int main() {
     AMGX_matrix_handle A;
     AMGX_vector_handle b, x;
     //Read config file
-    AMGX_create_config(&cfg, argv[1]);
+    AMGX_config_create_from_file(&cfg, argv[1]);
 
     //Create resources based on config
     AMGX_resources_create_simple(&res, cfg);
