@@ -39,8 +39,8 @@ int main(int argc, char** argv) {
     //Setup and Solve
     AMGX_solver_setup(solver,A);
     AMGX_solver_solve(solver, b, x);
-    AMGX_download_vector(&x)
-    printf(x)
+    AMGX_download_vector(&x);
+    printf(x);
     
     return 0;
 }
