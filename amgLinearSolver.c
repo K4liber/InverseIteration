@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
 
     //Try to pass something to the solution vector
     int N = 2;
-    double *h_ b= malloc(N * sizeof(double));
+    double *h_b = malloc(N * sizeof(double));
     double *h_x = malloc(N * sizeof(double));
     h_b[0] = 5.5;
     h_b[1] = 7;
