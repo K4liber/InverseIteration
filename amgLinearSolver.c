@@ -28,13 +28,11 @@ int main(int argc, char** argv) {
     AMGX_matrix_create(&A,res,mode);
     AMGX_vector_create(&x,res,mode); 
     AMGX_vector_create(&b,res,mode);
-
+    int N = 2;
     //Read coefficients from a file    
-    AMGX_SAFE_CALL(AMGX_read_system(A, x, b, argv[2]));
-    int n = 0;
+    AMGX_SAFE_CALL(AMGX_read_system(A, argv[2]));
     int xsize_x = 0, xsize_y = 0;
-    AMGX_SAFE_CALL(AMGX_matrix_get_size(A, &n, &xsize_x, &xsize_y));
-    AMGX_SAFE_CALL(AMGX_vector_set_random(x, n));
+    //AMGX_SAFE_CALL(AMGX_matrix_get_size(A, &N, &xsize_x, &xsize_y));
 
     //Try to pass something to the solution vector
     int N = 2;
@@ -46,7 +44,6 @@ int main(int argc, char** argv) {
 
     //Setup and Solve
     AMGX_solver_setup(solver,A);
-    AMGX_solver_solve(solver, b, x);
     AMGX_solver_solve(solver, b, x);
 
     //Try to get x vector

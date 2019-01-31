@@ -47,6 +47,7 @@ double inverse_iteration (Eigen::MatrixXd A, double epsilon){
 void mtx(Eigen::MatrixXd tab, int n){
 	ofstream file;
 	file.open("matrix.mtx");
+	file << '%%MatrixMarket matrix coordinate real general' << '\n';
 	int nozeros=0;
 	for (int i = 0; i<n; ++i){
 		for(int j = 0; j<n; ++j){
