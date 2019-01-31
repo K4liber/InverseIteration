@@ -29,4 +29,5 @@ class InverseIteration {
         AMGX_resources_handle res = NULL;
         AMGX_Mode mode = AMGX_mode_dDDI;
 
+
 }

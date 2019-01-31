@@ -29,6 +29,14 @@ int main(int argc, char** argv) {
     AMGX_vector_create(&x,res,mode); 
     AMGX_vector_create(&b,res,mode);
 
+    //Try to pass somethind to the vector
+    int N = 2;
+    double *h_b = malloc(N * sizeof(double));
+    for (int i=0;i<N;i++) {
+        h_b[i] = 2.0;
+    }
+    AMGX_vector_upload(b, N, 1, h_b);
+
     //Read coefficients from a file    
     AMGX_SAFE_CALL(AMGX_read_system(A, x, b, argv[2]));
     AMGX_write_system(A, x, b, "fileOut1.mtx");
@@ -39,6 +47,7 @@ int main(int argc, char** argv) {
 
     //Setup and Solve
     AMGX_solver_setup(solver,A);
+    AMGX_solver_solve(solver, b, x);
     AMGX_solver_solve(solver, b, x);
     //AMGX_download_vector(&x);
     AMGX_write_system(A, x, b, "fileOut.mtx");
