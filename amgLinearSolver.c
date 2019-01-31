@@ -31,7 +31,6 @@ int main(int argc, char** argv) {
 
     //Read coefficients from a file    
     AMGX_SAFE_CALL(AMGX_read_system(A, x, b, argv[2]));
-    AMGX_write_system(A, x, b, "fileOut1.mtx");
     int n = 0;
     int xsize_x = 0, xsize_y = 0;
     AMGX_SAFE_CALL(AMGX_matrix_get_size(A, &n, &xsize_x, &xsize_y));
@@ -49,9 +48,6 @@ int main(int argc, char** argv) {
     AMGX_solver_setup(solver,A);
     AMGX_solver_solve(solver, b, x);
     AMGX_solver_solve(solver, b, x);
-    //AMGX_download_vector(&x);
-    AMGX_write_system(A, x, b, "fileOut.mtx");
-    
 
     //Try to get x vector
     AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
