@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     AMGX_vector_upload(b, N, 1, h_b);
 
     //Setup and Solve
-    AMGX_solver_setup(solver,A);
+    AMGX_solver_setup(solver, A);
     AMGX_solver_solve(solver, b, x);
 
     //Try to get x vector
