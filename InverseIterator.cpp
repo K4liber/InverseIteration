@@ -59,7 +59,7 @@ double InverseIterator::getAMGXEigenValue() {
 void InverseIterator::saveMatrixAsMTX(double** tab, int n){
     ofstream file;
     file.open("matrix.mtx");
-    file << '%%MatrixMarket matrix coordinate real general' << '\n';
+    file << "%%MatrixMarket matrix coordinate real general" << '\n';
     vector<string> lines;
     string line;
     int nozeros=0;
