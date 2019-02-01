@@ -1,4 +1,4 @@
-#include "InverseIteration.h"
+#include "InverseIterator.h"
 #include <iostream>
 
 double** createHamiltonian(int N, double mu) {
