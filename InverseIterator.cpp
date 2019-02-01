@@ -75,7 +75,8 @@ void InverseIterator::saveMatrixAsMTX(double** tab, int n){
         for(int j = 0; j < n; ++j){
             if( tab[i][j] != 0){
                 nozeros++;
-                line.append(string(i+1)).append(" ").append(string(j+1)).append(string(tab[i][j]);
+                line.append(sts::string(i+1)).append(" ").append(string(j+1));
+                line.append(std::string(tab[i][j]);
                 lines.push_back(line);
                 line = "";
             }
