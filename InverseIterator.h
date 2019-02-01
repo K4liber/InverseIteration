@@ -13,7 +13,7 @@ public:
 
     /* *** Class contructor *** */
     InverseIterator();
-    InverseIterator(double**, int, double);
+    InverseIterator(double**, double);
 
     /* *** Get matrix eigenvalue using AMGX *** */
     double getEigenValue();
