@@ -15,7 +15,7 @@ public:
 
     /* *** Class contructor *** */
     InverseIterator();
-    InverseIterator(std::string, double**, int, double);
+    InverseIterator(double**, int, double);
 
     /* *** Get matrix eigenvalue using AMGX *** */
     double getEigenValue();
