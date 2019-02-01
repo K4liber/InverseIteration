@@ -15,7 +15,7 @@ class InverseIterator {
 
         /* *** Class contructor *** */
         InverseIterator();
-        InverseIterator(String, double**, int, double);
+        InverseIterator(std::string, double**, int, double);
 
         /* *** Get matrix eigenvalue using AMGX *** */
         double getEigenValue();
@@ -40,6 +40,6 @@ class InverseIterator {
 
         /*** Substract vectors v1 - v2***/
         double getNormFromSubstract(double*, double*, int);
-}
+};
 
 #endif
