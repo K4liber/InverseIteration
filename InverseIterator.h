@@ -14,7 +14,7 @@ class InverseIterator {
     public:
 
         /* *** Class contructor *** */
-        InverseIterator(String configFileName, double** matrix, int N, double epsilon);
+        InverseIterator(String, double**, int, double);
 
         /* *** Get matrix eigenvalue using AMGX *** */
         double getEigenValue();
@@ -32,13 +32,13 @@ class InverseIterator {
         double epsilon;
 
         /* *** Save matrix to mtx format *** */
-        void saveMatrixAsMTX(double** tab, int n);
+        void saveMatrixAsMTX(double**, int);
 
         /*** Normalize vector v***/
-        void normalize(double *v, int n);
+        void normalize(double*, int);
 
         /*** Substract vectors v1 - v2***/
-        double getNormFromSubstract(double* v1, double* v2, int n);
+        double getNormFromSubstract(double*, double*, int);
 }
 
 #endif
