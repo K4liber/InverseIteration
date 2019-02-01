@@ -4,7 +4,7 @@
 using namespace std;
 
 InverseIterator::InverseIterator() {}
-InverseIterator::InverseIterator(String configFileName, double** matrix, int N, double epsilon) {
+InverseIterator::InverseIterator(string configFileName, double** matrix, int N, double epsilon) {
     this.epsilon = epsilon;
     /* init */
     AMGX_SAFE_CALL(AMGX_initialize());
