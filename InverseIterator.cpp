@@ -16,7 +16,7 @@ InverseIterator::InverseIterator(double** matrix, double epsilon) {
     /* system */
     AMGX_SAFE_CALL(AMGX_install_signal_handler());
     //Read config file
-    char* configFileName = 'FGMRES_AGGREGATION.json';
+    char* configFileName = "FGMRES_AGGREGATION.json";
     AMGX_config_create_from_file(&cfg, configFileName);
 
     //Create resources based on config
