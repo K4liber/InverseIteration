@@ -1,9 +1,12 @@
-#include "InverseIterator.h"
+#include <string>
+#include <stdlib.h>
 #include <stdio.h>
+
+#include "InverseIterator.h"
 
 InverseIterator::InverseIterator() {}
 InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
-    this.epsilon = epsilon;
+    this->epsilon = epsilon;
     /* init */
     AMGX_SAFE_CALL(AMGX_initialize());
     AMGX_SAFE_CALL(AMGX_initialize_plugins());

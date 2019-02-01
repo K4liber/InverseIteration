@@ -1,8 +1,6 @@
 #ifndef InverseIterator_h
 #define InverseIterator_h
 
-#include <stdlib.h>
-#include <string.h>
 #include "amgx_c.h"
 
 /* *** InverseIterator *** 
