@@ -28,7 +28,7 @@ private:
     AMGX_Mode mode = AMGX_mode_dDDI;
     double* h_b;
     double* h_x;
-    double** h_matrix
+    double** h_matrix;
     double epsilon;
     int N;
 

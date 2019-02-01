@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fstream>
+#include <iostream>
 #include <vector>
 
 #include "InverseIterator.h"
@@ -58,7 +59,7 @@ double InverseIterator::getEigenValue() {
 
     double bZero = 0.0;
     for (int i = 0; i < this->N; i++) {
-        bZero += h_matrix[0][i] * x[i];
+        bZero += h_matrix[0][i] * h_x[i];
     }
     return bZero/h_x[0];
 }
@@ -68,7 +69,7 @@ void InverseIterator::saveMatrixAsMTX(double** tab, int n){
     file.open("matrix.mtx");
     file << "%%MatrixMarket matrix coordinate real general" << '\n';
     std::vector<std::string> lines;
-    string line;
+    std::string line;
     int nozeros=0;
     for (int i = 0; i < n; ++i){
         for(int j = 0; j < n; ++j){
@@ -102,5 +103,5 @@ double InverseIterator::getNormFromSubstract(double* v1, double* v2, int n) {
         double sub = v1[i] - v2[i];
         norm += sub*sub;
     }
-    return sub;
+    return norm;
 }
