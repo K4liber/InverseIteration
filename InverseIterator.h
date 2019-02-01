@@ -1,5 +1,5 @@
-#ifndef InverseIterator_h
-#define InverseIterator_h
+#ifndef _InverseIterator_H_
+#define _InverseIterator_H_
 
 #include "amgx_c.h"
 
@@ -42,4 +42,4 @@ private:
     double getNormFromSubstract(double*, double*, int);
 };
 
-#endif
+#endif _InverseIterator_H_
