@@ -9,8 +9,8 @@ double** createHamiltonian(int N, double mu) {
 
     for (int i=0; i < N; i++) {
         A[i][i] = -2.0 - mu;
-        A[0][n-1] = 1.0;
-        A[n-1][0] = 1.0;	
+        A[0][N-1] = 1.0;
+        A[N-1][0] = 1.0;	
         if (i > 0) A[i][i-1] = 1.0;
         if (i < N-1) A[i][i+1] = 1.0;
     }
