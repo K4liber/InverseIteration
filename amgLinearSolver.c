@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     AMGX_vector_create(&b,res,mode);
     int N = 2;
     //Read coefficients from a file    
-    AMGX_SAFE_CALL(AMGX_read_system(A, argv[2]));
+    AMGX_SAFE_CALL(AMGX_read_system(A, x, b, argv[2]));
     int xsize_x = 0, xsize_y = 0;
     //AMGX_SAFE_CALL(AMGX_matrix_get_size(A, &N, &xsize_x, &xsize_y));
 
