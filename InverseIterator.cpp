@@ -3,6 +3,7 @@
 
 using namespace std;
 
+InverseIterator::InverseIterator() {}
 InverseIterator::InverseIterator(String configFileName, double** matrix, int N, double epsilon) {
     this.epsilon = epsilon;
     /* init */
