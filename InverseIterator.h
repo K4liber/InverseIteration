@@ -11,35 +11,35 @@ using inverse iteration algorithm
 */
 class InverseIterator {
 
-    public:
+public:
 
-        /* *** Class contructor *** */
-        InverseIterator();
-        InverseIterator(std::string s, double**, int, double);
+    /* *** Class contructor *** */
+    InverseIterator();
+    InverseIterator(std::string, double**, int, double);
 
-        /* *** Get matrix eigenvalue using AMGX *** */
-        double getEigenValue();
+    /* *** Get matrix eigenvalue using AMGX *** */
+    double getEigenValue();
 
-    private:
+private:
 
-        AMGX_matrix_handle A;
-        AMGX_vector_handle b, x;
-        AMGX_config_handle cfg;
-        AMGX_solver_handle solver;
-        AMGX_resources_handle res = NULL;
-        AMGX_Mode mode = AMGX_mode_dDDI;
-        double *h_b;
-        double *h_x;
-        double epsilon;
+    AMGX_matrix_handle A;
+    AMGX_vector_handle b, x;
+    AMGX_config_handle cfg;
+    AMGX_solver_handle solver;
+    AMGX_resources_handle res = NULL;
+    AMGX_Mode mode = AMGX_mode_dDDI;
+    double *h_b;
+    double *h_x;
+    double epsilon;
 
-        /* *** Save matrix to mtx format *** */
-        void saveMatrixAsMTX(double**, int);
+    /* *** Save matrix to mtx format *** */
+    void saveMatrixAsMTX(double**, int);
 
-        /*** Normalize vector v***/
-        void normalize(double*, int);
+    /*** Normalize vector v***/
+    void normalize(double*, int);
 
-        /*** Substract vectors v1 - v2***/
-        double getNormFromSubstract(double*, double*, int);
+    /*** Substract vectors v1 - v2***/
+    double getNormFromSubstract(double*, double*, int);
 };
 
 #endif
