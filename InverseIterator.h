@@ -26,8 +26,9 @@ private:
     AMGX_solver_handle solver;
     AMGX_resources_handle res = NULL;
     AMGX_Mode mode = AMGX_mode_dDDI;
-    double *h_b;
-    double *h_x;
+    double* h_b;
+    double* h_x;
+    double** h_matrix
     double epsilon;
     int N;
 

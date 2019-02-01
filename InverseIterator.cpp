@@ -10,6 +10,7 @@
 InverseIterator::InverseIterator() {}
 InverseIterator::InverseIterator(double** matrix, double epsilon) {
     this->epsilon = epsilon;
+    this->h_matrix = matrix;
     /* init */
     AMGX_SAFE_CALL(AMGX_initialize());
     AMGX_SAFE_CALL(AMGX_initialize_plugins());
@@ -49,24 +50,24 @@ double InverseIterator::getEigenValue() {
         AMGX_solver_setup(solver, A);
         AMGX_solver_solve(solver, b, x);
         AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
-        normalize(h_x);
-        res = getNormFromSubstract(h_x, h_b);
-        cout<<"Itaration: "<<i<<", residual: "<<res<<endl;
+        normalize(h_x, this->N);
+        res = getNormFromSubstract(h_x, h_b, this->N);
+        std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
         AMGX_vector_upload(x, N, 1, h_b);
     }
 
     double bZero = 0.0;
-    for (int i = 0; i < n; i++) {
-        bZero += A[0][i] * x[i];
+    for (int i = 0; i < this->N; i++) {
+        bZero += h_matrix[0][i] * x[i];
     }
-    return bZero/x[0];
+    return bZero/h_x[0];
 }
 
 void InverseIterator::saveMatrixAsMTX(double** tab, int n){
-    ofstream file;
+    std::ofstream file;
     file.open("matrix.mtx");
     file << "%%MatrixMarket matrix coordinate real general" << '\n';
-    vector<std::string> lines;
+    std::vector<std::string> lines;
     string line;
     int nozeros=0;
     for (int i = 0; i < n; ++i){
@@ -80,7 +81,7 @@ void InverseIterator::saveMatrixAsMTX(double** tab, int n){
         }
     }
     file << n << " " << n << " " << nozeros;
-    for (vector<std::string>::iterator it = lines.begin(); it != lines.end(); ++it)
+    for (std::vector<std::string>::iterator it = lines.begin(); it != lines.end(); ++it)
         file << *it << '\n';
     file.close();	
 }
