@@ -31,6 +31,7 @@ private:
     double *h_b;
     double *h_x;
     double epsilon;
+    int N;
 
     /* *** Save matrix to mtx format *** */
     void saveMatrixAsMTX(double**, int);

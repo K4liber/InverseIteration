@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 InverseIterator::InverseIterator() {}
-InverseIterator::InverseIterator(std::string configFileName, double** matrix, int N, double epsilon) {
+InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
     this.epsilon = epsilon;
     /* init */
     AMGX_SAFE_CALL(AMGX_initialize());
@@ -10,6 +10,7 @@ InverseIterator::InverseIterator(std::string configFileName, double** matrix, in
     /* system */
     AMGX_SAFE_CALL(AMGX_install_signal_handler());
     //Read config file
+    std::string configFileName = "FGMRES_AGGREGATION.json";
     AMGX_config_create_from_file(&cfg, configFileName);
 
     //Create resources based on config
@@ -21,11 +22,11 @@ InverseIterator::InverseIterator(std::string configFileName, double** matrix, in
     AMGX_vector_create(&x,res,mode); 
     AMGX_vector_create(&b,res,mode);
 
-    //Read coefficients from a file    
-    AMGX_SAFE_CALL(AMGX_read_system(A, x, b, argv[2]));
-    int n = 2;
+    saveMatrixAsMTX(matrix, N);
+    //Read coefficients from a file 
+    AMGX_SAFE_CALL(AMGX_read_system(A, x, b, "matrix.mtx"));
     int xsize_x = 0, xsize_y = 0;
-    AMGX_SAFE_CALL(AMGX_matrix_get_size(A, &n, &xsize_x, &xsize_y));
+    AMGX_SAFE_CALL(AMGX_matrix_get_size(A, &this.N, &xsize_x, &xsize_y));
     AMGX_SAFE_CALL(AMGX_vector_set_random(x, n));
     AMGX_SAFE_CALL(AMGX_vector_set_random(b, n));
 
