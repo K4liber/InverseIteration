@@ -6,6 +6,7 @@
 
 #include "InverseIterator.h"
 
+/* Compile: gcc -fPIC -shared InverseIterator.cpp -o InverseIterator.so */
 InverseIterator::InverseIterator() {}
 InverseIterator::InverseIterator(double** matrix, double epsilon) {
     this->epsilon = epsilon;
@@ -15,7 +16,8 @@ InverseIterator::InverseIterator(double** matrix, double epsilon) {
     /* system */
     AMGX_SAFE_CALL(AMGX_install_signal_handler());
     //Read config file
-    AMGX_config_create_from_file(&cfg, 'FGMRES_AGGREGATION.json');
+    char* configFileName = 'FGMRES_AGGREGATION.json';
+    AMGX_config_create_from_file(&cfg, configFileName);
 
     //Create resources based on config
     AMGX_resources_create_simple(&res, cfg);
