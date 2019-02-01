@@ -1,10 +1,8 @@
 #include "InverseIterator.h"
 #include <stdio.h>
 
-using namespace std;
-
 InverseIterator::InverseIterator() {}
-InverseIterator::InverseIterator(string configFileName, double** matrix, int N, double epsilon) {
+InverseIterator::InverseIterator(std::string configFileName, double** matrix, int N, double epsilon) {
     this.epsilon = epsilon;
     /* init */
     AMGX_SAFE_CALL(AMGX_initialize());
@@ -75,7 +73,7 @@ void InverseIterator::saveMatrixAsMTX(double** tab, int n){
         }
     }
     file << n << " " << n << " " << nozeros;
-    for (vector<string>::iterator it = lines.begin(); it != lines.end(); ++it)
+    for (vector<std::string>::iterator it = lines.begin(); it != lines.end(); ++it)
         file << *it << '\n';
     file.close();	
 }
