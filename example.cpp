@@ -20,7 +20,7 @@ int main() {
     int N = 10;
     double mu = -5;
     double **A = createHamiltonian(N, mu);
-    InverseIterator *invIter = new InverseIterator(A, 0.0001);
-    double eigenValue = invIter->getEigenValue();
+    InverseIterator invIter = InverseIterator(A, 0.0001);
+    double eigenValue = invIter.getEigenValue();
     std::cout<<"Eigenvalue: "<<eigenValue<<std::endl;
 }
