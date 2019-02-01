@@ -35,7 +35,6 @@ int main(int argc, char** argv) {
     //AMGX_SAFE_CALL(AMGX_matrix_get_size(A, &N, &xsize_x, &xsize_y));
 
     //Try to pass something to the solution vector
-    int N = 2;
     double *h_b = malloc(N * sizeof(double));
     double *h_x = malloc(N * sizeof(double));
     h_b[0] = 5.5;
