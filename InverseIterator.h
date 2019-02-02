@@ -11,10 +11,7 @@ class InverseIterator {
 
 public:
 
-    /* *** Class contructor *** */
     InverseIterator(double**, int, double);
-
-    /* *** Get matrix eigenvalue using AMGX *** */
     double getEigenValue();
 
 private:
@@ -31,14 +28,9 @@ private:
     double epsilon;
     int N;
 
-    /* *** Save matrix to mtx format *** */
     void saveMatrixAsMTX();
-
-    /*** Normalize vector v***/
-    void normalize(double*);
-
-    /*** Substract vectors v1 - v2***/
-    double getNormFromSubstract(double*, double*);
+    void normalizeSolution();
+    double getResiduum();
 };
 
 #endif _InverseIterator_H_

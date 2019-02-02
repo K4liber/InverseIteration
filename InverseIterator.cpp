@@ -52,8 +52,8 @@ double InverseIterator::getEigenValue() {
         } else {
             h_x = h_xHelp;
         }
-        normalize(h_x);
-        res = getResiduum(h_x, h_b);
+        normalizeSolution();
+        res = getResiduum();
         std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
         AMGX_vector_upload(b, N, 1, h_x);
         AMGX_vector_download(b, h_b);
@@ -90,26 +90,26 @@ void InverseIterator::saveMatrixAsMTX(){
     file.close();	
 }
 
-void InverseIterator::normalize(double *v) {
+void InverseIterator::normalizeSolution() {
     double norm = 0.0;
 
     for (int i = 0; i < N; i++)
-        norm += v[i] * v[i];
+        norm += h_x[i] * h_x[i];
     
     for (int i = 0; i < N; i++)
-        v[i] = v[i]/sqrt(norm);
+        h_x[i] = h_x[i]/sqrt(norm);
 }
 
-double InverseIterator::getResiduum(double* v1, double* v2) {
+double InverseIterator::getResiduum() {
     double resSub = 0.0;
     double resSum = 0.0;
     double sub = 0.0;
     double sum = 0.0;
 
     for (int i = 0; i < N; i++) {
-        sub = v1[i] - v2[i];
+        sub = h_x[i] - h_b[i];
         resSub += sub*sub;
-        sum = v1[i] + v2[i];
+        sum = h_x[i] + h_b[i];
         resSum += sum*sum;
     }
 
