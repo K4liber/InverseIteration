@@ -77,13 +77,13 @@ void InverseIterator::saveMatrixAsMTX(){
             if( h_matrix[i][j] != 0){
                 nozeros++;
                 line.append(std::to_string(i+1)).append(" ").append(std::to_string(j+1));
-                line.append(std::to_string(h_matrix[i][j]));
+                line.append(" ").append(std::to_string(h_matrix[i][j]));
                 lines.push_back(line);
                 line = "";
             }
         }
     }
-    file << N << " " << N << " " << nozeros;
+    file << N << " " << N << " " << nozeros << "\n";
     for (std::vector<std::string>::iterator it = lines.begin(); it != lines.end(); ++it)
         file << *it << '\n';
     file.close();	
