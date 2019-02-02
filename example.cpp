@@ -15,6 +15,7 @@ double** createHamiltonian(int N, double mu) {
         if (i > 0) A[i][i-1] = 1.0;
         if (i < N-1) A[i][i+1] = 1.0;
     }
+    return A;
 }
 
 int main() {

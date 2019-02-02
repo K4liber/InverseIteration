@@ -7,7 +7,7 @@
 
 #include "InverseIterator.h"
 
-/* Compile: gcc -fPIC -shared InverseIterator.cpp -o InverseIterator.so */
+/* Compile: gcc -fPIC -shared InverseIterator.cpp -o InverseIterator.so -std=c++11 */
 InverseIterator::InverseIterator() {}
 InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
     this->epsilon = epsilon;
