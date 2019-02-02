@@ -49,14 +49,17 @@ double InverseIterator::getEigenValue() {
     int i = 0;
     AMGX_vector_download(b, h_b);
     AMGX_solver_setup(solver, A);
-
+    double* h_xHelp = (double*)malloc(N * sizeof(double));
     while ((res>epsilon) && (i<1000)){
         i++;
         //Setup and Solve
         AMGX_solver_solve(solver, b, x);
-        AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
-        if (h_x[0] != h_x[0])
+        AMGX_SAFE_CALL(AMGX_vector_download(x, h_xHelp));
+        if (h_xHelp[0] != h_xHelp[0]) {
             break;
+        } else {
+            AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
+        }
         normalize(h_x);
         res = getNormFromSubstract(h_x, h_b);
         std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
