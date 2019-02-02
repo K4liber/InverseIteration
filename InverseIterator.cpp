@@ -56,7 +56,7 @@ double InverseIterator::getEigenValue() {
         AMGX_solver_solve(solver, b, x);
         AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
         normalize(h_x);
-        res = getNormFromSubstract(h_x, h_b, this->N);
+        res = getNormFromSubstract(h_x, h_b);
         std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
         AMGX_vector_upload(b, N, 1, h_x);
         AMGX_vector_download(b, h_b);
@@ -103,14 +103,15 @@ void InverseIterator::normalize(double *v) {
         v[i] = v[i]/sqrt(norm);
 }
 
-double InverseIterator::getNormFromSubstract(double* v1, double* v2, int n) {
+double InverseIterator::getNormFromSubstract(double* v1, double* v2) {
     std::cout<<"Printing v1:"<<std::endl;
     printVector(v1, n);
     std::cout<<"Printing v2:"<<std::endl;
     printVector(v1, n);
-    double norm = 0.000000000001;
-    for (int i = 0; i < n; i++) {
-        double sub = v1[i] - v2[i];
+    double norm = 0.0;
+    double sub = 0.0;
+    for (int i = 0; i < N; i++) {
+        sub = v1[i] - v2[i];
         norm += sub*sub;
     }
     return sqrt(norm);

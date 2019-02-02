@@ -38,7 +38,7 @@ private:
     void normalize(double*);
 
     /*** Substract vectors v1 - v2***/
-    double getNormFromSubstract(double*, double*, int);
+    double getNormFromSubstract(double*, double*);
 };
 
 #endif _InverseIterator_H_
