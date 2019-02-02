@@ -96,7 +96,7 @@ void InverseIterator::normalize(double *v) {
 }
 
 double InverseIterator::getNormFromSubstract(double* v1, double* v2, int n) {
-    double norm = 0.0;
+    double norm = 0.000000000001;
     for (int i = 0; i < n; i++) {
         double sub = v1[i] - v2[i];
         norm += sub*sub;
