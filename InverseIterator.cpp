@@ -13,7 +13,7 @@ void printVector(double *vector, int N) {
     for (int i = 0; i < N-1; i++) {
         std::cout<<vector[i]<<", ";
     }
-    std::cout<<vector[N-1]<<")"<<endl;
+    std::cout<<vector[N-1]<<")"<<std::endl;
 }
 
 /* Compile: gcc -fPIC -shared InverseIterator.cpp -o InverseIterator.so -std=c++11 */
