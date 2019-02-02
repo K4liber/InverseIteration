@@ -3,16 +3,18 @@
 
 #include "amgx_c.h"
 
-/* *** InverseIterator *** 
-Class using AMGX library to count eigenvalue of given matrix
-using inverse iteration algorithm
-*/
+/** 
+    Class InverseIterator is intended to perform inverse iteration 
+    algorithm to find the smallest eigenvalue of a given matrix,
+    using AMGX library (https://github.com/NVIDIA/AMGX) to solve 
+    the system of linear equations.
+ */
 class InverseIterator {
 
 public:
 
     InverseIterator(double**, int, double, char*);
-    double getEigenValue();
+    double getEigenValue(bool);
 
 private:
 

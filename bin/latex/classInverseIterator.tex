@@ -1,0 +1,59 @@
+\hypertarget{classInverseIterator}{}\section{Inverse\+Iterator Class Reference}
+\label{classInverseIterator}\index{Inverse\+Iterator@{Inverse\+Iterator}}
+
+
+{\ttfamily \#include $<$Inverse\+Iterator.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classInverseIterator_ae93b4bde7555481fe252bb9b35953c22}{Inverse\+Iterator} (double $\ast$$\ast$, int, double, char $\ast$)
+\item 
+double \hyperlink{classInverseIterator_afa15c1c69a14e4d222557ea9fb8007b8}{get\+Eigen\+Value} (bool)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{classInverseIterator}{Inverse\+Iterator} is intended to perform inverse iteration algorithm to find the smallest eigenvalue of a given matrix, using A\+M\+GX library (\href{https://github.com/NVIDIA/AMGX}{\tt https\+://github.\+com/\+N\+V\+I\+D\+I\+A/\+A\+M\+GX}) to solve the system of linear equations. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classInverseIterator_ae93b4bde7555481fe252bb9b35953c22}\label{classInverseIterator_ae93b4bde7555481fe252bb9b35953c22}} 
+\index{Inverse\+Iterator@{Inverse\+Iterator}!Inverse\+Iterator@{Inverse\+Iterator}}
+\index{Inverse\+Iterator@{Inverse\+Iterator}!Inverse\+Iterator@{Inverse\+Iterator}}
+\subsubsection{\texorpdfstring{Inverse\+Iterator()}{InverseIterator()}}
+{\footnotesize\ttfamily Inverse\+Iterator\+::\+Inverse\+Iterator (\begin{DoxyParamCaption}\item[{double $\ast$$\ast$}]{matrix,  }\item[{int}]{N,  }\item[{double}]{epsilon,  }\item[{char $\ast$}]{A\+M\+G\+X\+Config\+File\+Path }\end{DoxyParamCaption})}
+
+Initialize the A\+M\+GX library. It set up computing environment based on configuration file\+: allocate memory, load the matrix and vectors. 
+\begin{DoxyParams}{Parameters}
+{\em matrix} & The square matrix that we are considering \\
+\hline
+{\em N} & Size of the matrix \\
+\hline
+{\em epsilon} & Responsible for the accuracy of the calculation \\
+\hline
+{\em A\+M\+G\+X\+Config\+File\+Path} & Path to the A\+M\+G\+X-\/type configuration file \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classInverseIterator_afa15c1c69a14e4d222557ea9fb8007b8}\label{classInverseIterator_afa15c1c69a14e4d222557ea9fb8007b8}} 
+\index{Inverse\+Iterator@{Inverse\+Iterator}!get\+Eigen\+Value@{get\+Eigen\+Value}}
+\index{get\+Eigen\+Value@{get\+Eigen\+Value}!Inverse\+Iterator@{Inverse\+Iterator}}
+\subsubsection{\texorpdfstring{get\+Eigen\+Value()}{getEigenValue()}}
+{\footnotesize\ttfamily double Inverse\+Iterator\+::get\+Eigen\+Value (\begin{DoxyParamCaption}\item[{bool}]{log }\end{DoxyParamCaption})}
+
+Count and return eigenvalue. 
+\begin{DoxyParams}{Parameters}
+{\em log} & If true -\/ write the progress to the standard output \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+double 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Inverse\+Iterator.\+h\item 
+Inverse\+Iterator.\+cpp\end{DoxyCompactItemize}

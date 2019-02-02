@@ -5,11 +5,18 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
-
 #include "InverseIterator.h"
 
+/** 
+    Initialize the AMGX library.
+    It set up computing environment based on configuration file:
+    allocate memory, load the matrix and vectors.
+    @param matrix The square matrix that we are considering
+    @param N Size of the matrix
+    @param epsilon Responsible for the accuracy of the calculation
+    @param AMGXConfigFilePath Path to the AMGX-type configuration file
+ */
 InverseIterator::InverseIterator(double** matrix, int N, double epsilon, char* AMGXConfigFilePath) {
-    /* Constuct class */
     this->epsilon = epsilon;
     this->h_matrix = matrix;
     this->N = N;
@@ -26,13 +33,16 @@ InverseIterator::InverseIterator(double** matrix, int N, double epsilon, char* A
     AMGX_vector_create(&b,res,mode);
     saveMatrixAsMTX();
     AMGX_SAFE_CALL(AMGX_read_system(A, x, b, "matrix.mtx"));
-    int xsize_x = 0, xsize_y = 0;
-    AMGX_SAFE_CALL(AMGX_matrix_get_size(A, &this->N, &xsize_x, &xsize_y));
+    remove("matrix.mtx");
     AMGX_SAFE_CALL(AMGX_vector_set_random(x, this->N));
     AMGX_SAFE_CALL(AMGX_vector_set_random(b, this->N));
 }
 
-double InverseIterator::getEigenValue() {
+/** Count and return eigenvalue.
+    @param log If true - write the progress to the standard output
+    @return double
+ */
+double InverseIterator::getEigenValue(bool log) {
     double res = 1.0;
     int i = 0;
     AMGX_vector_download(b, h_b);
@@ -49,7 +59,7 @@ double InverseIterator::getEigenValue() {
         }
         normalizeSolution();
         res = getResiduum();
-        std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
+        if (log) std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
         AMGX_vector_upload(b, N, 1, h_x);
         AMGX_vector_download(b, h_b);
     }
