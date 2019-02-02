@@ -12,7 +12,6 @@ class InverseIterator {
 public:
 
     /* *** Class contructor *** */
-    InverseIterator();
     InverseIterator(double**, int, double);
 
     /* *** Get matrix eigenvalue using AMGX *** */
