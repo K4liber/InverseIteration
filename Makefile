@@ -1,5 +1,5 @@
 # AMGX build path
-AMGX_BUILD_PATH="/home/dteam002/project/AMGX/build"
+AMGX_BUILD_PATH=/home/dteam002/project/AMGX/build
 
 CFLAGS= -fPIC -shared -std=c++11
 
