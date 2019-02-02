@@ -21,8 +21,9 @@ double** createHamiltonian(int N, double mu) {
 int main(int argc, char** argv) {
     int N = atoi(argv[1]);
     double mu = atof(argv[2]);
+    double epsilon = atof(argv[3]);
     double **A = createHamiltonian(N, mu);
-    InverseIterator invIter = InverseIterator(A, N, 0.01);
+    InverseIterator invIter = InverseIterator(A, N, epsilon);
     double eigenValue = invIter.getEigenValue();
     std::cout<<"Eigenvalue: "<<eigenValue<<std::endl;
 }
