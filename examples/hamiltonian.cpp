@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     int N = atoi(argv[1]);
     double mu = atof(argv[2]);
     double epsilon = atof(argv[3]);
-    std::string AMGXConfigFilePath = "FGMRES_AGGREGATION.json"
+    char AMGXConfigFilePath[] = "FGMRES_AGGREGATION.json"
     double **A = createHamiltonian(N, mu);
     InverseIterator invIter = InverseIterator(A, N, epsilon, AMGXConfigFilePath);
     double eigenValue = invIter.getEigenValue();

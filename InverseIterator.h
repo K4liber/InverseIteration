@@ -11,7 +11,7 @@ class InverseIterator {
 
 public:
 
-    InverseIterator(double**, int, double, std::string);
+    InverseIterator(double**, int, double, char*);
     double getEigenValue();
 
 private:

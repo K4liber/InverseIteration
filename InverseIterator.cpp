@@ -8,7 +8,7 @@
 
 #include "InverseIterator.h"
 
-InverseIterator::InverseIterator(double** matrix, int N, double epsilon, std::string AMGXConfigFilePath) {
+InverseIterator::InverseIterator(double** matrix, int N, double epsilon, char* AMGXConfigFilePath) {
     /* Constuct class */
     this->epsilon = epsilon;
     this->h_matrix = matrix;
