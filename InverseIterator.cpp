@@ -9,9 +9,10 @@
 
 /* Compile: gcc -fPIC -shared InverseIterator.cpp -o InverseIterator.so */
 InverseIterator::InverseIterator() {}
-InverseIterator::InverseIterator(double** matrix, double epsilon) {
+InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
     this->epsilon = epsilon;
     this->h_matrix = matrix;
+    this->N = N;
     /* init */
     AMGX_SAFE_CALL(AMGX_initialize());
     AMGX_SAFE_CALL(AMGX_initialize_plugins());
@@ -30,7 +31,7 @@ InverseIterator::InverseIterator(double** matrix, double epsilon) {
     AMGX_vector_create(&x,res,mode); 
     AMGX_vector_create(&b,res,mode);
 
-    saveMatrixAsMTX(matrix, N);
+    saveMatrixAsMTX(h_matrix, N);
     //Read coefficients from a file 
     AMGX_SAFE_CALL(AMGX_read_system(A, x, b, "matrix.mtx"));
     int xsize_x = 0, xsize_y = 0;
@@ -64,15 +65,15 @@ double InverseIterator::getEigenValue() {
     return bZero/h_x[0];
 }
 
-void InverseIterator::saveMatrixAsMTX(double** tab, int n){
+void InverseIterator::saveMatrixAsMTX(double** tab){
     std::ofstream file;
     file.open("matrix.mtx");
     file << "%%MatrixMarket matrix coordinate real general" << '\n';
     std::vector<std::string> lines;
     std::string line;
     int nozeros=0;
-    for (int i = 0; i < n; ++i){
-        for(int j = 0; j < n; ++j){
+    for (int i = 0; i < N; ++i){
+        for(int j = 0; j < N; ++j){
             if( tab[i][j] != 0){
                 nozeros++;
                 line.append(std::to_string(i+1)).append(" ").append(std::to_string(j+1));
@@ -82,7 +83,7 @@ void InverseIterator::saveMatrixAsMTX(double** tab, int n){
             }
         }
     }
-    file << n << " " << n << " " << nozeros;
+    file << N << " " << N << " " << nozeros;
     for (std::vector<std::string>::iterator it = lines.begin(); it != lines.end(); ++it)
         file << *it << '\n';
     file.close();	
