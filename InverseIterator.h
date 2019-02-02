@@ -13,7 +13,7 @@ public:
 
     /* *** Class contructor *** */
     InverseIterator();
-    InverseIterator(double**, double);
+    InverseIterator(double**, int, double);
 
     /* *** Get matrix eigenvalue using AMGX *** */
     double getEigenValue();
@@ -33,7 +33,7 @@ private:
     int N;
 
     /* *** Save matrix to mtx format *** */
-    void saveMatrixAsMTX(double**, int);
+    void saveMatrixAsMTX();
 
     /*** Normalize vector v***/
     void normalize(double*, int);

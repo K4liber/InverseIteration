@@ -31,7 +31,7 @@ InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
     AMGX_vector_create(&x,res,mode); 
     AMGX_vector_create(&b,res,mode);
 
-    saveMatrixAsMTX(h_matrix, N);
+    saveMatrixAsMTX();
     //Read coefficients from a file 
     AMGX_SAFE_CALL(AMGX_read_system(A, x, b, "matrix.mtx"));
     int xsize_x = 0, xsize_y = 0;
@@ -65,7 +65,7 @@ double InverseIterator::getEigenValue() {
     return bZero/h_x[0];
 }
 
-void InverseIterator::saveMatrixAsMTX(double** tab){
+void InverseIterator::saveMatrixAsMTX(){
     std::ofstream file;
     file.open("matrix.mtx");
     file << "%%MatrixMarket matrix coordinate real general" << '\n';
@@ -74,10 +74,10 @@ void InverseIterator::saveMatrixAsMTX(double** tab){
     int nozeros=0;
     for (int i = 0; i < N; ++i){
         for(int j = 0; j < N; ++j){
-            if( tab[i][j] != 0){
+            if( h_matrix[i][j] != 0){
                 nozeros++;
                 line.append(std::to_string(i+1)).append(" ").append(std::to_string(j+1));
-                line.append(std::to_string(tab[i][j]));
+                line.append(std::to_string(h_matrix[i][j]));
                 lines.push_back(line);
                 line = "";
             }
