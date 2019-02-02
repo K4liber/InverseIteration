@@ -44,13 +44,13 @@ double InverseIterator::getEigenValue() {
     while ((res>epsilon) && (i<1000)){
         i++;
         //Setup and Solve
-        AMGX_solver_setup(solver, A);
         AMGX_solver_solve(solver, b, x);
         AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
         normalize(h_x);
         res = getNormFromSubstract(h_x, h_b, this->N);
         std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
         AMGX_vector_upload(b, N, 1, h_x);
+        AMGX_vector_download(b, h_b);
     }
 
     double bZero = 0.0;
