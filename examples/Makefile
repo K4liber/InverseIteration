@@ -9,7 +9,7 @@ CFLAGS= -O3 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm
  
 
 hamiltonian:
-	nvcc ${CFLAGS} InverseIterator.cpp -o libInverseIterator.so \
+	nvcc ${CFLAGS} hamiltonian.cpp -o hamiltonian \
 		-L${AMGX_BUILD_PATH} -lamgxsh \
 		-L${II_PATH} -lInverseIterator \
 		-L${CUDA_PATH}/lib64 -lcudart \
