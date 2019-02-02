@@ -55,11 +55,12 @@ double InverseIterator::getEigenValue() {
         //Setup and Solve
         AMGX_solver_solve(solver, b, x);
         AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
+        if (h_x[0] != h_x[0])
+            break;
         normalize(h_x);
         res = getNormFromSubstract(h_x, h_b);
         std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
         AMGX_vector_upload(b, N, 1, h_x);
-        AMGX_SAFE_CALL(AMGX_vector_set_random(x, this->N));
         AMGX_vector_download(b, h_b);
     }
 
