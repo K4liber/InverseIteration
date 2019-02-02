@@ -23,7 +23,7 @@
         "use_scalar_norm": 1, 
         "solver": "FGMRES", 
         "print_solve_stats": 0, 
-        "obtain_timings": 1, 
+        "obtain_timings": 0, 
         "max_iters": 1000, 
         "monitor_residual": 0, 
         "gmres_n_restart": 10, 

@@ -8,14 +8,6 @@
 
 #include "InverseIterator.h"
 
-void printVector(double *vector, int N) {
-    std::cout<<"(";
-    for (int i = 0; i < N-1; i++) {
-        std::cout<<vector[i]<<", ";
-    }
-    std::cout<<vector[N-1]<<")"<<std::endl;
-}
-
 /* Compile: gcc -fPIC -shared InverseIterator.cpp -o InverseIterator.so -std=c++11 */
 InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
     /* Constuct class */
@@ -58,7 +50,7 @@ double InverseIterator::getEigenValue() {
         if (h_xHelp[0] != h_xHelp[0]) {
             break;
         } else {
-            AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
+            h_x = h_xHelp;
         }
         normalize(h_x);
         res = getNormFromSubstract(h_x, h_b);
@@ -99,8 +91,6 @@ void InverseIterator::saveMatrixAsMTX(){
 }
 
 void InverseIterator::normalize(double *v) {
-    std::cout<<"Printing v:"<<std::endl;
-    printVector(v, N);
     double norm = 0.0;
 
     for (int i = 0; i < N; i++)
@@ -111,16 +101,11 @@ void InverseIterator::normalize(double *v) {
 }
 
 double InverseIterator::getNormFromSubstract(double* v1, double* v2) {
-    std::cout<<"Printing v1:"<<std::endl;
-    printVector(v1, N);
-    std::cout<<"Printing v2:"<<std::endl;
-    printVector(v2, N);
     double norm = 0.0;
     double sub = 0.0;
     for (int i = 0; i < N; i++) {
         sub = v1[i] - v2[i];
         norm += sub*sub;
-        std::cout<<"Sub("<<std::to_string(i)<<"): "<<std::to_string(sub)<<" Norm: "<<std::to_string(norm)<<std::endl;
     }
     return sqrt(norm);
 }
