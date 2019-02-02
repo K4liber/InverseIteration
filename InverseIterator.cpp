@@ -8,6 +8,14 @@
 
 #include "InverseIterator.h"
 
+void printVector(double *vector, int N) {
+    std::cout<<"(";
+    for (int i = 0; i < N-1; i++) {
+        std::cout<<vector[i]<<", ";
+    }
+    std::cout<<vector[N-1]<<")"<<endl;
+}
+
 /* Compile: gcc -fPIC -shared InverseIterator.cpp -o InverseIterator.so -std=c++11 */
 InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
     /* Constuct class */
@@ -96,6 +104,10 @@ void InverseIterator::normalize(double *v) {
 }
 
 double InverseIterator::getNormFromSubstract(double* v1, double* v2, int n) {
+    std::cout<<"Printing v1:"<<std::endl;
+    printVector(v1, n);
+    std::cout<<"Printing v2:"<<std::endl;
+    printVector(v1, n);
     double norm = 0.000000000001;
     for (int i = 0; i < n; i++) {
         double sub = v1[i] - v2[i];
