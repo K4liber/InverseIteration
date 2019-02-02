@@ -1,5 +1,7 @@
 #include "InverseIterator.h"
 #include <iostream>
+#include <cuda_runtime.h>
+#include <cuda_runtime_api.h>
 
 double** createHamiltonian(int N, double mu) {
     double** A = (double**)malloc(N * sizeof(double*));
@@ -22,8 +24,22 @@ int main(int argc, char** argv) {
     double mu = atof(argv[2]);
     double epsilon = atof(argv[3]);
     char AMGXConfigFilePath[] = "FGMRES_AGGREGATION.json";
+    float elapsed=0;
+    cudaEvent_t start, stop;
+    CUDA_CHECK(cudaEventCreate(&start));
+    CUDA_CHECK(cudaEventCreate(&stop));
     double **A = createHamiltonian(N, mu);
     InverseIterator invIter = InverseIterator(A, N, epsilon, AMGXConfigFilePath);
+
+    CUDA_CHECK(cudaEventRecord(start, 0));
     double eigenValue = invIter.getEigenValue();
+    CUDA_CHECK(cudaEventRecord(stop, 0));
+
+    CUDA_CHECK(cudaEventSynchronize (stop) );
+    CUDA_CHECK(cudaEventElapsedTime(&elapsed, start, stop) );
+    CUDA_CHECK(cudaEventDestroy(start));
+    CUDA_CHECK(cudaEventDestroy(stop));
+    
     std::cout<<"Eigenvalue: "<<eigenValue<<std::endl;
+    std::cout<<"The elapsed time in gpu was "<<std::to_string(elapsed)<<"ms"<<std::endl;
 }
