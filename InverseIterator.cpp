@@ -113,6 +113,7 @@ double InverseIterator::getNormFromSubstract(double* v1, double* v2) {
     for (int i = 0; i < N; i++) {
         sub = v1[i] - v2[i];
         norm += sub*sub;
+        std::cout<<"Sub("<<std::to_string(i)<<"): "<<std::to_string(sub)<<" Norm: "<<std::to_string(norm)<<std::endl;
     }
     return sqrt(norm);
 }
