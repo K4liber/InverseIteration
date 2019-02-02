@@ -13,8 +13,8 @@ InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
     this->epsilon = epsilon;
     this->h_matrix = matrix;
     this->N = N;
-    this->h_b = malloc(N * sizeof(double));
-    this->h_x = malloc(N * sizeof(double));
+    this->h_b = (double*)malloc(N * sizeof(double));
+    this->h_x = (double*)malloc(N * sizeof(double));
     /* AMGX init */
     AMGX_SAFE_CALL(AMGX_initialize());
     AMGX_SAFE_CALL(AMGX_initialize_plugins());
