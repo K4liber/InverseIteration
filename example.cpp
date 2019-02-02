@@ -18,9 +18,9 @@ double** createHamiltonian(int N, double mu) {
     return A;
 }
 
-int main() {
+int main(int argc, char** argv) {
     int N = 100;
-    double mu = -8;
+    double mu = atof(argv[1]);
     double **A = createHamiltonian(N, mu);
     InverseIterator invIter = InverseIterator(A, N, 0.01);
     double eigenValue = invIter.getEigenValue();
