@@ -8,20 +8,17 @@
 
 #include "InverseIterator.h"
 
-InverseIterator::InverseIterator(double** matrix, int N, double epsilon) {
+InverseIterator::InverseIterator(double** matrix, int N, double epsilon, std::string AMGXConfigFilePath) {
     /* Constuct class */
     this->epsilon = epsilon;
     this->h_matrix = matrix;
     this->N = N;
     this->h_b = (double*)malloc(N * sizeof(double));
     this->h_x = (double*)malloc(N * sizeof(double));
-    /* AMGX init */
     AMGX_SAFE_CALL(AMGX_initialize());
     AMGX_SAFE_CALL(AMGX_initialize_plugins());
     AMGX_SAFE_CALL(AMGX_install_signal_handler());
-
-    const char configFileName[] = "FGMRES_AGGREGATION.json";
-    AMGX_config_create_from_file(&cfg, configFileName);
+    AMGX_config_create_from_file(&cfg, AMGXConfigFilePath);
     AMGX_resources_create_simple(&res, cfg);
     AMGX_solver_create(&solver, res, mode, cfg);
     AMGX_matrix_create(&A,res,mode);
@@ -43,7 +40,6 @@ double InverseIterator::getEigenValue() {
     double* h_xHelp = (double*)malloc(N * sizeof(double));
     while ((res>epsilon) && (i<1000)){
         i++;
-        //Setup and Solve
         AMGX_solver_solve(solver, b, x);
         AMGX_SAFE_CALL(AMGX_vector_download(x, h_xHelp));
         if (h_xHelp[0] != h_xHelp[0]) {
