@@ -107,7 +107,7 @@ double InverseIterator::getNormFromSubstract(double* v1, double* v2) {
     std::cout<<"Printing v1:"<<std::endl;
     printVector(v1, N);
     std::cout<<"Printing v2:"<<std::endl;
-    printVector(v1, N);
+    printVector(v2, N);
     double norm = 0.0;
     double sub = 0.0;
     for (int i = 0; i < N; i++) {
