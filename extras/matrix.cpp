@@ -24,7 +24,6 @@ int main(){
 		if (i<n-1) m(i,i+1) = 1;
 	}
 
-	subMu(&m, mu);
 	Eigen::SelfAdjointEigenSolver<MatrixXd> eigenSolver(m,false);
 	
 	cout << "	Matrix:" << '\n';
@@ -35,10 +34,10 @@ int main(){
 	
 	sort(eigenValues, eigenValues + n);
 	ofstream myfile;
-	myfile.open("eigenvalues.txt")
-    for (size_t i = 0; i != n; ++i) {
+	myfile.open("eigenvalues.txt");
+    for (int i = 0; i != n; ++i) {
         cout << eigenValues[i] << endl;
-        myfile eigenValues[i] << endl;
+        myfile << eigenValues[i] << endl;
 	}
 	myfile.close();
 }
