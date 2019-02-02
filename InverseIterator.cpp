@@ -49,7 +49,7 @@ double InverseIterator::getEigenValue() {
         normalize(h_x, this->N);
         res = getNormFromSubstract(h_x, h_b, this->N);
         std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
-        AMGX_vector_upload(x, N, 1, h_b);
+        AMGX_vector_upload(b, N, 1, h_x);
     }
 
     double bZero = 0.0;

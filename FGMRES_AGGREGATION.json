@@ -25,7 +25,7 @@
         "print_solve_stats": 0, 
         "obtain_timings": 1, 
         "max_iters": 1000, 
-        "monitor_residual": 1, 
+        "monitor_residual": 0, 
         "gmres_n_restart": 10, 
         "convergence": "RELATIVE_INI_CORE", 
         "scope": "main", 
