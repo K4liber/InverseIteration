@@ -3,8 +3,6 @@
 #include <string.h>
 #include "amgx_c.h"
 
-/*** Compile: gcc -o amgLinearSolver.x amgLinearSolver.c -L/home/dteam002/project/AMGX/build -lamgxsh ***/
-/*** Run: ***/
 int main(int argc, char** argv) {
     /* init */
     AMGX_SAFE_CALL(AMGX_initialize());
