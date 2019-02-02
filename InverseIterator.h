@@ -33,4 +33,4 @@ private:
     double getResiduum();
 };
 
-#endif _InverseIterator_H_
+#endif

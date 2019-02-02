@@ -1,7 +1,7 @@
 #include "InverseIterator.h"
 #include <iostream>
 
-// Compile: g++ hamiltonian.cpp -o hamiltonian -L/home/dteam002/project/AMGX/build -lamgxsh -L. -lInverseIterator
+// Compile: g++ hamiltonian.cpp -o hamiltonian -L/home/dteam002/project/AMGX/build -lamgxsh -L/home/dteam002/project/InverseIteration -lInverseIterator -I/home/dteam002/project/InverseIteration
 double** createHamiltonian(int N, double mu) {
     double** A = (double**)malloc(N * sizeof(double*));
 
