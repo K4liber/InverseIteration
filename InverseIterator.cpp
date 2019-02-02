@@ -46,7 +46,7 @@ double InverseIterator::getEigenValue() {
         AMGX_solver_setup(solver, A);
         AMGX_solver_solve(solver, b, x);
         AMGX_SAFE_CALL(AMGX_vector_download(x, h_x));
-        normalize(h_x, this->N);
+        normalize(h_x);
         res = getNormFromSubstract(h_x, h_b, this->N);
         std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
         AMGX_vector_upload(b, N, 1, h_x);
@@ -83,14 +83,14 @@ void InverseIterator::saveMatrixAsMTX(){
     file.close();	
 }
 
-void InverseIterator::normalize(double *v, int n) {
+void InverseIterator::normalize(double *v) {
     double norm = 0.0;
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < N; i++)
         norm += v[i] * v[i];
     
-    for (int i = 0; i < n; i++)
-        v[i] = v[i]/norm;
+    for (int i = 0; i < N; i++)
+        v[i] = v[i]/sqrt(norm);
 }
 
 double InverseIterator::getNormFromSubstract(double* v1, double* v2, int n) {

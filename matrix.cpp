@@ -25,19 +25,19 @@ void random_vector(Eigen::VectorXd *v){
 /* *** Count eigenvalue of matrix A using inverse iteration algorithm *** */
 double inverse_iteration (Eigen::MatrixXd A, double epsilon){
 	int n = sqrt(A.size());
-	VectorXd x0(n);
+	VectorXd b(n);
 	VectorXd x(n);
 	random_vector(&x0);
-	x0 = x0/x0.norm();
+	b = b/b.norm();
 	double res = 1.0;
 	int i=0;
 	while ((res>epsilon) && (i<1000)){
 		i++;
-		x = A.colPivHouseholderQr().solve(x0);
+		x = A.colPivHouseholderQr().solve(b);
 		x = x/x.norm();
-		res = (x-x0).norm();
+		res = (x-b).norm();
 		cout<<"itaration: "<<i<<" residual: "<<res<<endl;
-		x0 = x;
+		b = x;
 	}
 	VectorXd s = A*x;
 	return s(0)/x(0);

@@ -35,7 +35,7 @@ private:
     void saveMatrixAsMTX();
 
     /*** Normalize vector v***/
-    void normalize(double*, int);
+    void normalize(double*);
 
     /*** Substract vectors v1 - v2***/
     double getNormFromSubstract(double*, double*, int);
