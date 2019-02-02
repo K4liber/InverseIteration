@@ -101,5 +101,5 @@ double InverseIterator::getNormFromSubstract(double* v1, double* v2, int n) {
         double sub = v1[i] - v2[i];
         norm += sub*sub;
     }
-    return norm;
+    return sqrt(norm);
 }
