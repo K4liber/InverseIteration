@@ -94,6 +94,8 @@ void InverseIterator::saveMatrixAsMTX(){
 }
 
 void InverseIterator::normalize(double *v) {
+    std::cout<<"Printing v:"<<std::endl;
+    printVector(v, N);
     double norm = 0.0;
 
     for (int i = 0; i < N; i++)
