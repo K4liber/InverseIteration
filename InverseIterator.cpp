@@ -40,7 +40,8 @@ double InverseIterator::getEigenValue() {
     double res = 1.0;
     int i = 0;
     AMGX_vector_download(b, h_b);
-
+    AMGX_solver_setup(solver, A);
+    
     while ((res>epsilon) && (i<1000)){
         i++;
         //Setup and Solve
