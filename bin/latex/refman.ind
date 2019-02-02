@@ -1,0 +1,12 @@
+\begin{theindex}
+
+  \item {get\+Eigen\+Value}
+    \subitem {Inverse\+Iterator}, \hyperpage{4}
+
+  \indexspace
+
+  \item {Inverse\+Iterator}, \hyperpage{3}
+    \subitem {get\+Eigen\+Value}, \hyperpage{4}
+    \subitem {Inverse\+Iterator}, \hyperpage{3}
+
+\end{theindex}
