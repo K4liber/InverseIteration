@@ -3,6 +3,15 @@
 #include <cuda_runtime.h>
 #include <cuda_runtime_api.h>
 
+#define CUDA_CHECK(__err) \
+do { \
+    if (__err != cudaSuccess) { \
+        fprintf(stderr, "Fatal error: %s (at %s:%d)\n", cudaGetErrorString(__err), __FILE__, __LINE__); \
+        fprintf(stderr, "*** FAILED - ABORTING\n"); \
+        exit(EXIT_FAILURE); \
+    } \
+} while (0)
+
 double** createHamiltonian(int N, double mu) {
     double** A = (double**)malloc(N * sizeof(double*));
 
