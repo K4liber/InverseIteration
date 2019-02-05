@@ -1,5 +1,7 @@
 # AMGX build path
-AMGX_BUILD_PATH=/home/dteam002/project/AMGX/build
+AMG_PATH=/scratch/dteam002 # edit this before compile
+AMGX_LIB_PATH=${AMG_PATH}/AMGX/build
+AMGX_INCLUDE_PATH= ${AMG_PATH}/AMGX/base/include
 # InverseIterator build path
 II_PATH=/home/dteam002/project/InverseIteration
 # Cuda path
@@ -10,11 +12,12 @@ CFLAGS= -O3 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm
 
 hamiltonian:
 	nvcc ${CFLAGS} hamiltonian.cpp -o hamiltonian \
-		-L${AMGX_BUILD_PATH} -lamgxsh \
+		-L${AMGX_LIB_PATH} -lamgxsh \
 		-L${II_PATH} -lInverseIterator \
 		-L${CUDA_PATH}/lib64 -lcudart \
 		-I${II_PATH} \
-		-I${CUDA_PATH}/include
+		-I${CUDA_PATH}/include \
+		-I${AMGX_INCLUDE_PATH}
 
 clean:
 	rm -f hamiltonian
