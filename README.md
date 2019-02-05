@@ -6,7 +6,7 @@ InverseIterator is intended to perform inverse iteration algorithm to find the s
 
 #### Build Inverse Iterator
 
-Set up AMGX build path (variable AMGX_BUILD_PATH in the Makefile) and type:
+Set up AMGX build and include paths (variables AMGX_BUILD_PATH and AMGX_INCLUDE_PATH in the Makefile) and type:
 
 ```sh
 $ make
@@ -18,7 +18,7 @@ This example perform inverse iteration algorithm on Hamilton operator.
 ```sh
 $ cd examples/
 ```
-Set up build paths (variables AMGX_BUILD_PATH, II_PATH and CUDA_PATH in the Makefile). Set the architecture of your GPU (variable CFLAGS in the Makefile) and type:
+Set up AMGX, CUDA InverseIterator build and include paths (variables AMGX_BUILD_PATH and AMGX_INCLUDE_PATH, II_PATH and CUDA_PATH in the Makefile). Set the architecture of your GPU (variable CFLAGS in the Makefile) and type:
 
 ```sh
 $ make
