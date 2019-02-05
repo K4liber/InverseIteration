@@ -1,5 +1,5 @@
 # AMGX build path
-AMG_PATH=/scratch/dteam002 # edit this before compile
+AMG_PATH=/scratch/dteam002# edit this before compile
 AMGX_LIB_PATH=${AMG_PATH}/AMGX/build
 AMGX_INCLUDE_PATH= ${AMG_PATH}/AMGX/base/include
 CFLAGS= -std=c++11
