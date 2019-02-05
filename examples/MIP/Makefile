@@ -10,7 +10,7 @@ XCOMPILER= -pthread
 XLINKER= -L/opt/openmpi-gcc721-Cuda90/3.1.1/lib -lmpi
 
 amgx_mpi_capi:
-	nvcc ${CFLAGS} ${XCOMPILER} amgx_mpi_capi.c -o amgx_mpi_capi \
+	nvcc ${CFLAGS} amgx_mpi_capi.c -o amgx_mpi_capi \
 		 ${XLINKER} \
 		-L${AMGX_LIB_PATH} -lamgxsh -I${AMGX_INCLUDE_PATH} \
 		-L${CUDA_PATH}/lib64 -lcudart \
