@@ -1,8 +1,6 @@
 #include "InverseIterator.h"
 #include <iostream>
-#include <cuda_runtime.h>
 #include <cuda_runtime_api.h>
-#include <mpi.h>
 
 #define CUDA_CHECK(__err) \
 do { \

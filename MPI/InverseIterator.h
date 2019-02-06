@@ -2,6 +2,8 @@
 #define _InverseIterator_H_
 
 #include "amgx_c.h"
+#include <mpi.h>
+#include "cuda_runtime.h"
 
 /** 
     Class InverseIterator is intended to perform inverse iteration 

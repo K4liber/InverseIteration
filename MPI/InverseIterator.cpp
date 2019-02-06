@@ -6,8 +6,6 @@
 #include <vector>
 #include <cmath>
 #include "InverseIterator.h"
-#include <mpi.h>
-#include "cuda_runtime.h"
 
 /* CUDA error macro */
 #define CUDA_SAFE_CALL(call) do {                                 \
