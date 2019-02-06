@@ -8,10 +8,11 @@ II_PATH=/home/dteam002/project/InverseIteration/MPI
 CUDA_PATH=/usr/local/cuda
 
 CFLAGS= -O3 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm_37 -gencode=arch=compute_60,code=sm_60 -lm
- 
+MPI= -L/opt/openmpi-gcc721-Cuda90/3.1.1/lib -lmpi
 
 hamiltonian:
 	nvcc ${CFLAGS} hamiltonian.cpp -o hamiltonian \
+		${MPI} \
 		-L${AMGX_LIB_PATH} -lamgxsh \
 		-L${II_PATH} -lInverseIterator \
 		-L${CUDA_PATH}/lib64 -lcudart \
