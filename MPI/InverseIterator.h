@@ -14,7 +14,8 @@ class InverseIterator {
 public:
 
     InverseIterator(double**, int, double, char*);
-    double getEigenValue(bool, int, char **);
+    double getEigenValue(bool);
+    double getEigenValueMPI(bool, int, char **);
 
 private:
 

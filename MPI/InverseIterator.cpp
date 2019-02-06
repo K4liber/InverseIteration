@@ -38,14 +38,59 @@ InverseIterator::InverseIterator(double** matrix, int N, double epsilon, char* A
     AMGX_SAFE_CALL(AMGX_initialize_plugins());
     AMGX_SAFE_CALL(AMGX_install_signal_handler());
     AMGX_config_create_from_file(&cfg, AMGXConfigFilePath);
-    AMGX_resources_create_simple(&res, cfg);
 }
 
 /** Count and return eigenvalue.
     @param log If true - write the progress to the standard output
     @return double
  */
-double InverseIterator::getEigenValue(bool log, int argc, char **argv) {
+double InverseIterator::getEigenValue(bool log) {
+    AMGX_resources_create_simple(&res, cfg);
+    AMGX_solver_create(&solver, res, mode, cfg);
+    AMGX_matrix_create(&A,res,mode);
+    AMGX_vector_create(&x,res,mode); 
+    AMGX_vector_create(&b,res,mode);
+    saveMatrixAsMTX();
+    AMGX_SAFE_CALL(AMGX_read_system(A, x, b, "matrix.mtx"));
+    remove("matrix.mtx");
+    AMGX_SAFE_CALL(AMGX_vector_set_random(x, this->N));
+    AMGX_SAFE_CALL(AMGX_vector_set_random(b, this->N));
+
+    double res = 1.0;
+    int i = 0;
+    AMGX_vector_download(b, h_b);
+    AMGX_solver_setup(solver, A);
+    double* h_xHelp = (double*)malloc(N * sizeof(double));
+    while ((res>epsilon) && (i<1000)){
+        i++;
+        AMGX_solver_solve(solver, b, x);
+        AMGX_SAFE_CALL(AMGX_vector_download(x, h_xHelp));
+        if (h_xHelp[0] != h_xHelp[0]) {
+            break;
+        } else {
+            h_x = h_xHelp;
+        }
+        normalizeSolution();
+        res = getResiduum();
+        if (log) std::cout<<"Itaration: "<<i<<", residual: "<<res<<std::endl;
+        AMGX_vector_upload(b, N, 1, h_x);
+        AMGX_vector_download(b, h_b);
+    }
+
+    double bZero = 0.0;
+    for (int i = 0; i < this->N; i++) {
+        bZero += h_matrix[0][i] * h_x[i];
+    }
+    return bZero/h_x[0];
+}
+
+/** Count and return eigenvalue using MPI.
+    @param log If true - write the progress to the standard output
+    @param argc Number of program parameters
+    @param argv Program parameters
+    @return double
+ */
+double InverseIterator::getEigenValueMPI(bool log, int argc, char** argv) {
     //MPI (with CUDA GPUs)
     int rank = 0;
     int lrank = 0;
