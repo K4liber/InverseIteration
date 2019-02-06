@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     InverseIterator invIter = InverseIterator(A, N, epsilon, AMGXConfigFilePath);
 
     CUDA_CHECK(cudaEventRecord(start, 0));
-    double eigenValue = invIter.getEigenValue(true, argc, argv);
+    double eigenValue = invIter.getEigenValue(true);
     CUDA_CHECK(cudaEventRecord(stop, 0));
 
     CUDA_CHECK(cudaEventSynchronize (stop) );
