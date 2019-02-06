@@ -35,6 +35,9 @@ int main(int argc, char** argv) {
     int N = atoi(argv[1]);
     double mu = atof(argv[2]);
     double epsilon = atof(argv[3]);
+
+    std::cout<<"EPsilon: "<<std::to_string(epsilon)<<std::endl;
+
     char AMGXConfigFilePath[] = "FGMRES_AGGREGATION.json";
     float elapsed=0;
     cudaEvent_t start, stop;
