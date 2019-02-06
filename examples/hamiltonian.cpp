@@ -36,8 +36,6 @@ int main(int argc, char** argv) {
     double mu = atof(argv[2]);
     double epsilon = atof(argv[3]);
 
-    std::cout<<"EPsilon: "<<std::to_string(epsilon)<<std::endl;
-
     char AMGXConfigFilePath[] = "FGMRES_AGGREGATION.json";
     float elapsed=0;
     cudaEvent_t start, stop;
@@ -46,8 +44,11 @@ int main(int argc, char** argv) {
     double **A = createHamiltonian(N, mu);
     InverseIterator invIter = InverseIterator(A, N, epsilon, AMGXConfigFilePath);
 
+    std::cout<<"JEST TUTAJ 1"<<std::endl;
     CUDA_CHECK(cudaEventRecord(start, 0));
+    std::cout<<"JEST TUTAJ 2"<<std::endl;
     double eigenValue = invIter.getEigenValueMPI(true, argc, argv, amgx_mpi_comm);
+    std::cout<<"JEST TUTAJ 3"<<std::endl;
     CUDA_CHECK(cudaEventRecord(stop, 0));
 
     CUDA_CHECK(cudaEventSynchronize(stop));
