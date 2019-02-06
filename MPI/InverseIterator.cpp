@@ -88,14 +88,13 @@ double InverseIterator::getEigenValue(bool log) {
     @param argv Program parameters
     @return double
  */
-double InverseIterator::getEigenValueMPI(bool log, int argc, char** argv) {
+double InverseIterator::getEigenValueMPI(bool log, int argc, char** argv, MPI_Comm amgx_mpi_comm) {
     //MPI (with CUDA GPUs)
     int rank = 0;
     int lrank = 0;
     int nranks = 0;
     int gpu_count = 0;
-    MPI_Comm amgx_mpi_comm = MPI_COMM_WORLD;
-    MPI_Init(&argc, &argv);
+    
     MPI_Comm_size(amgx_mpi_comm, &nranks);
     MPI_Comm_rank(amgx_mpi_comm, &rank);
     CUDA_SAFE_CALL(cudaGetDeviceCount(&gpu_count));

@@ -28,6 +28,10 @@ double** createHamiltonian(int N, double mu) {
 }
 
 int main(int argc, char** argv) {
+    // MPI INIT
+    MPI_Comm amgx_mpi_comm = MPI_COMM_WORLD;
+    MPI_Init(&argc, &argv);
+
     int N = atoi(argv[1]);
     double mu = atof(argv[2]);
     double epsilon = atof(argv[3]);
@@ -40,7 +44,7 @@ int main(int argc, char** argv) {
     InverseIterator invIter = InverseIterator(A, N, epsilon, AMGXConfigFilePath);
 
     CUDA_CHECK(cudaEventRecord(start, 0));
-    double eigenValue = invIter.getEigenValueMPI(true, argc, argv);
+    double eigenValue = invIter.getEigenValueMPI(true, argc, argv, amgx_mpi_comm);
     CUDA_CHECK(cudaEventRecord(stop, 0));
 
     CUDA_CHECK(cudaEventSynchronize(stop));

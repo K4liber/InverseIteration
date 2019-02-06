@@ -17,7 +17,7 @@ public:
 
     InverseIterator(double**, int, double, char*);
     double getEigenValue(bool);
-    double getEigenValueMPI(bool, int, char **);
+    double getEigenValueMPI(bool, int, char **, MPI_Comm);
 
 private:
 
