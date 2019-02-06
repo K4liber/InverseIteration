@@ -6,12 +6,12 @@ CFLAGS= -O3 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm
 MPI= -I/opt/openmpi-gcc721-Cuda90/3.1.1/include -L/opt/openmpi-gcc721-Cuda90/3.1.1/lib -lmpi
 CUDA_PATH=/usr/local/cuda
 X_COMPILER="-fPIC -pthread"
-WL=-Wl,-rpath -Wl,/opt/openmpi-gcc721-Cuda90/3.1.1/lib -Wl,--enable-new-dtags
+X_LINKER="--enable-new-dtags"
 
 libInverseIterator.so:
 	nvcc ${CFLAGS} InverseIterator.cpp -o libInverseIterator.so \
 		${MPI} \
-		${WL} \
+		-Xlinker ${X_LINKER} \
 		-Xcompiler ${X_COMPILER} \
 		-L${AMGX_LIB_PATH} -lamgxsh -I${AMGX_INCLUDE_PATH} \
 		-L${CUDA_PATH}/lib64 -lcudart \
