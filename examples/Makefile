@@ -11,7 +11,7 @@ CFLAGS= -O3 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm
 MPI= -L/opt/openmpi-gcc721-Cuda90/3.1.1/lib -lmpi
 
 hamiltonian:
-	mpic++ ${CFLAGS} hamiltonian.cpp -o hamiltonian \
+	mpicc ${CFLAGS} hamiltonian.cpp -o hamiltonian \
 		${MPI} \
 		-L${AMGX_LIB_PATH} -lamgxsh \
 		-L${II_PATH} -lInverseIterator \
