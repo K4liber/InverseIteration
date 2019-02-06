@@ -109,11 +109,13 @@ double InverseIterator::getEigenValueMPI(bool log, int argc, char** argv, MPI_Co
     AMGX_vector_create(&b,res,mode);
 
     if (rank == 0) saveMatrixAsMTX();
+    MPI_Barrier(amgx_mpi_comm);
 
     AMGX_SAFE_CALL(AMGX_read_system(A, x, b, "matrix.mtx"));
 
     if (rank == 0) remove("matrix.mtx");
-
+    MPI_Barrier(amgx_mpi_comm);
+    
     AMGX_SAFE_CALL(AMGX_vector_set_random(x, this->N));
     AMGX_SAFE_CALL(AMGX_vector_set_random(b, this->N));
     MPI_Barrier(amgx_mpi_comm);
