@@ -42,6 +42,7 @@ int main(int argc, char** argv) {
     CUDA_CHECK(cudaEventCreate(&start));
     CUDA_CHECK(cudaEventCreate(&stop));
     double **A = createHamiltonian(N, mu);
+    std::cout<<"JEST TUTAJ 0"<<std::endl;
     InverseIterator invIter = InverseIterator(A, N, epsilon, AMGXConfigFilePath);
 
     std::cout<<"JEST TUTAJ 1"<<std::endl;
