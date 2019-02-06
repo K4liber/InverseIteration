@@ -1,35 +1,9 @@
-/* Copyright (c) 2011-2017, NVIDIA CORPORATION. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *  * Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *  * Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *  * Neither the name of NVIDIA CORPORATION nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
- * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <mpi.h>
 #include "cuda_runtime.h"
+#include "amgx_c.h"
 
 /* CUDA error macro */
 #define CUDA_SAFE_CALL(call) do {                                 \
@@ -40,16 +14,7 @@
     exit(EXIT_FAILURE);                                           \
   } } while (0)
 
-//#define AMGX_DYNAMIC_LOADING
-//#undef AMGX_DYNAMIC_LOADING
 #define MAX_MSG_LEN 4096
-
-/* standard or dynamically load library */
-#ifdef AMGX_DYNAMIC_LOADING
-#include "amgx_capi.h"
-#else
-#include "amgx_c.h"
-#endif
 
 /* print error message and exit */
 void errAndExit(const char *err)
@@ -151,34 +116,6 @@ int main(int argc, char **argv)
     CUDA_SAFE_CALL(cudaSetDevice(lrank));
     printf("Process %d selecting device %d\n", rank, lrank);
 
-    /* check arguments */
-    if (argc == 1)
-    {
-        printUsageAndExit();
-    }
-
-    /* load the library (if it was dynamically loaded) */
-#ifdef AMGX_DYNAMIC_LOADING
-    void *lib_handle = NULL;
-#ifdef _WIN32
-    lib_handle = amgx_libopen("amgxsh.dll");
-#else
-    lib_handle = amgx_libopen("libamgxsh.so");
-#endif
-
-    if (lib_handle == NULL)
-    {
-        errAndExit("ERROR: can not load the library");
-    }
-
-    //load all the routines
-    if (amgx_liblink_all(lib_handle) == 0)
-    {
-        amgx_libclose(lib_handle);
-        errAndExit("ERROR: corrupted library loaded\n");
-    }
-
-#endif
     /* init */
     AMGX_SAFE_CALL(AMGX_initialize());
     AMGX_SAFE_CALL(AMGX_initialize_plugins());
@@ -186,48 +123,8 @@ int main(int argc, char **argv)
     AMGX_SAFE_CALL(AMGX_register_print_callback(&print_callback));
     AMGX_SAFE_CALL(AMGX_install_signal_handler());
 
-    /* get api and build info */
-    if ((pidx = findParamIndex(argv, argc, "--version")) != -1)
-    {
-        AMGX_get_api_version(&major, &minor);
-        printf("amgx api version: %d.%d\n", major, minor);
-        AMGX_get_build_info_strings(&ver, &date, &time);
-        printf("amgx build version: %s\nBuild date and time: %s %s\n", ver, date, time);
-        AMGX_SAFE_CALL(AMGX_finalize_plugins());
-        AMGX_SAFE_CALL(AMGX_finalize());
-        /* close the library (if it was dynamically loaded) */
-#ifdef AMGX_DYNAMIC_LOADING
-        amgx_libclose(lib_handle);
-#endif
-        MPI_Finalize();
-        exit(0);
-    }
-
-    /* get mode */
-    if ((pidx = findParamIndex(argv, argc, "-mode")) != -1)
-    {
-        if (strncmp(argv[pidx + 1], "dDDI", 100) == 0)
-        {
-            mode = AMGX_mode_dDDI;
-        }
-        else if (strncmp(argv[pidx + 1], "dDFI", 100) == 0)
-        {
-            mode = AMGX_mode_dDFI;
-        }
-        else if (strncmp(argv[pidx + 1], "dFFI", 100) == 0)
-        {
-            mode = AMGX_mode_dFFI;
-        }
-        else
-        {
-            errAndExit("ERROR: invalid mode");
-        }
-    }
-    else
-    {
-        printf("Warning: No mode specified, using dDDI by default.\n");
-        mode = AMGX_mode_dDDI;
-    }
+    
+    mode = AMGX_mode_dDDI;
 
     /* create config */
     pidx = findParamIndex(argv, argc, "-amg");
@@ -366,9 +263,7 @@ int main(int argc, char **argv)
     AMGX_SAFE_CALL(AMGX_finalize_plugins())
     AMGX_SAFE_CALL(AMGX_finalize())
     /* close the library (if it was dynamically loaded) */
-#ifdef AMGX_DYNAMIC_LOADING
-    amgx_libclose(lib_handle);
-#endif
+
     MPI_Finalize();
     CUDA_SAFE_CALL(cudaDeviceReset());
     return status;
