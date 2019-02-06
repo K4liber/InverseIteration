@@ -17,7 +17,7 @@
             __FILE__, __LINE__, cudaGetErrorString( err) );       \
     exit(EXIT_FAILURE);                                           \
   } } while (0)
-  
+
 /** 
     Initialize the AMGX library.
     It set up computing environment based on configuration file:
@@ -45,7 +45,7 @@ InverseIterator::InverseIterator(double** matrix, int N, double epsilon, char* A
     @param log If true - write the progress to the standard output
     @return double
  */
-double InverseIterator::getEigenValue(bool log, int *argc, char ***argv) {
+double InverseIterator::getEigenValue(bool log, int argc, char **argv) {
     //MPI (with CUDA GPUs)
     int rank = 0;
     int lrank = 0;
