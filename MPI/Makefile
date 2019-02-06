@@ -1,5 +1,5 @@
 # AMGX build path
-AMG_PATH=/scratch/dteam002 # edit this before compile
+AMG_PATH=/scratch/dteam002# edit this before compile
 AMGX_LIB_PATH=${AMG_PATH}/AMGX/build
 AMGX_INCLUDE_PATH= ${AMG_PATH}/AMGX/base/include
 CFLAGS= -O3 -gencode=arch=compute_35,code=sm_35 -gencode=arch=compute_37,code=sm_37 -gencode=arch=compute_60,code=sm_60 -lm -Xcompiler "-fPIC" -shared -std=c++11
