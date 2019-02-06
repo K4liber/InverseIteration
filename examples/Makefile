@@ -3,7 +3,7 @@ AMG_PATH=/scratch/dteam002 # edit this before compile
 AMGX_LIB_PATH=${AMG_PATH}/AMGX/build
 AMGX_INCLUDE_PATH= ${AMG_PATH}/AMGX/base/include
 # InverseIterator build path
-II_PATH=/home/dteam002/project/InverseIteration
+II_PATH=/home/dteam002/project/InverseIteration/MPI
 # Cuda path
 CUDA_PATH=/usr/local/cuda
 
